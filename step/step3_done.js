@@ -1,3 +1,6 @@
+// 단계별로 풀어보기 - 3_반복문
+// https://www.acmicpc.net/step/3
+
 const sol_2739 = () =>{
     const fs = require('fs');
     const num = Number(fs.readFileSync(0).toString().trim());
@@ -173,9 +176,23 @@ const sol_10951 = () =>{
     }
     console.log(res);
 }
+
+// 더하기 사이클
+// https://www.acmicpc.net/problem/1110
 const sol_1110 = () =>{
     const fs = require('fs');
-    const sep = '\n';
-    const [A,B] = fs.readFileSync(0).toString().trim().split(sep).map(Number);
-
+    const num = Number(fs.readFileSync(0).toString().trim());
+    let numCycle = 0;
+    let temp = num;
+    do {
+        if (temp < 10){
+            temp = Number(`${temp}${temp}`);
+        } else {
+            const [a, b] = temp.toString().split("");
+            const sum = +a + +b
+            temp = Number(`${b}${sum.toString().at(-1)}`)
+        }
+        numCycle++;
+    } while (temp !== num)
+    console.log(numCycle)
 }
