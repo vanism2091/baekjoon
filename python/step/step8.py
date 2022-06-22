@@ -1,3 +1,32 @@
+def sol_1978_1():
+    _ = int(input())
+    num_list = list(map(int, input().split()))
+
+    cnt = 0
+    for i in num_list:
+        isPrime = True
+        if i == 1:
+            continue
+        for j in range(2,i):
+            if i % j == 0:
+                isPrime = False
+                break
+        if isPrime:
+            cnt += 1
+    print(cnt)
+
+def sol_1978_2():
+    primes = [False, False] + [True] * 999
+    for i in range(2, 33):
+        if primes[i]:
+            for j in range(i*2, len(primes), i):
+                primes[j] = False
+    _ = int(input())
+    num_list = list(map(int, input().split()))
+    n = [num for num in num_list if primes[num+1]]
+    print(len(n))
+
+
 # 소수 
 # https://www.acmicpc.net/problem/2581
 # 첫 sol:
@@ -27,7 +56,7 @@ def sol_2581():
     def other_2581():
         primes = [False, False] + [True] * 9999
         for i in range(2, 101):
-            if primes[i] == True:
+            if primes[i]:
                 for j in range(i*2, len(primes), i):
                     primes[j] = False
 
@@ -41,13 +70,13 @@ def sol_2581():
 # https://www.acmicpc.net/problem/2581
 # 2581(소수) 다른 분 코드를 참고해서 공부 한 후
 # 그걸 응용해서 클리어할 수 있었던 것 같다
-# range의 두 번째 인자는 최대 자연수의 sqrt 보다 작은 최대 소수+1로 잡았다
+# range의 두 번째 인자는 최대 자연수의 sqrt 보다 작은 최대 소수(997)+2로 잡았다
 # 이것도 나는 336ms인데 다른 분은 100ms 대라, 공부가 필요할듯:)
 def sol_1929():
     primes = [False, False] + [True]*(1000000-1)
 
-    for i in range(2, 998):
-        if primes[i] == True:
+    for i in range(2, 999):
+        if primes[i]:
             for j in range(i*2, len(primes), i):
                 primes[j] = False
 
@@ -55,3 +84,22 @@ def sol_1929():
     res = [i for i in range(a, b+1) if primes[i]]
     for num in res:
         print(num)
+
+# 분석 필요함
+    def other_1929():
+        def prime(n):
+            if n < 2:
+                return []
+            else:
+                n += 1
+                save = [True] * (n // 2)
+                for i in range(3, int(n ** 0.5) + 1, 2):
+                    if save[i // 2]:
+                        k = i * i
+                        save[k // 2::i] = [False] * ((n - k - 1) // (2 * i) + 1)
+            return [2] + [2 * i + 1 for i in range(1, n // 2) if save[i]]
+
+        from bisect import bisect_left as bl
+        m, n = map(int, input().split())
+        s = prime(n)
+        print(*s[bl(s, m):])
