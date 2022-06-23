@@ -1,3 +1,8 @@
+problems = [1978, 2581, 1929]
+
+
+# 소수 찾기
+# 	30840	68
 def sol_1978_1():
     _ = int(input())
     num_list = list(map(int, input().split()))
@@ -15,6 +20,7 @@ def sol_1978_1():
             cnt += 1
     print(cnt)
 
+# 	30840	68
 def sol_1978_2():
     primes = [False, False] + [True] * 999
     for i in range(2, 33):

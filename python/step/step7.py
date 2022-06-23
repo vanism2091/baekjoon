@@ -14,4 +14,28 @@ def sol_2775():
                 res[j][l-1] = sum(res[j-1][:l])
         print(res[k][n-1])
         
-        
+# 설탕 배달
+# 30840	72
+# https://www.acmicpc.net/problem/2839
+def sol_2839():
+    n = int(input())
+    def isPossible(n):
+        div = n // 5
+        rem = n  % 5
+        for i in range(div+1):
+            if rem % 3 == 0:
+                return div+rem//3
+            else:
+                div -= 1
+                rem += 5
+        return -1
+
+    print(isPossible(n))
+
+
+# 큰 수 A+B
+# python is GOD!
+# https://www.acmicpc.net/problem/10757
+def sol_10757():
+    a, b  = map(int, input().split())
+    print(a+b)
