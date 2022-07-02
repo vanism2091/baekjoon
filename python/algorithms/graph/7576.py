@@ -15,7 +15,12 @@
 
 - 시간초과 :(
     5% index마다 bfs 쭉..
-    45% 1 있는 만큼 q 리스트를 만들어서 depth마다 q를..
+    44% 1 있는 만큼 q 리스트를 만들어서 depth마다 q를..
+
+아아.. 44%... 
+약속의 PyPy3으로 돌려보자
+44에서 마찬가지로 문제가 생긴다. 종료 조건이 있어야 하나? 무한 루프에 빠진걸까?
+생각해보니 -1 처리를 안했음 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ
 """
 def sol_7576_1():
     import sys
@@ -68,14 +73,14 @@ def sol_7576_2():
     import sys
     from collections import deque
 
-    p = sys.stdin.readline
-    m, n = map(int, p().split())
+    inputs = sys.stdin.read().splitlines()
+    m, n = map(int, inputs[0].split())
     idxs = []
     graph = []
 
     # 그래프 초기화
     for i in range(n):
-        l = list(map(int,p().split()))
+        l = list(map(int,inputs[1+i].split()))
         graph.append(l)
         if 1 not in l:
             continue
@@ -86,6 +91,7 @@ def sol_7576_2():
     dy = [0, 0, -1, 1]
     # BFS 정의
     def bfs(idxs):
+        # 모든 1들에 대해 deque를 만든다
         qs = [deque([(x, y)]) for x, y in idxs]
         while qs:
             for q in qs:
@@ -93,7 +99,10 @@ def sol_7576_2():
                     qs.remove(q)
                     continue
                 x, y = q.popleft()
+                stop_traverse_idx = set()
                 for i in range(4):
+                    if i in stop_traverse_idx:
+                        continue
                     nx = x + dx[i]
                     ny = y + dy[i]
                     if nx < 0 or nx >= n or ny < 0 or ny >= m:
@@ -102,7 +111,10 @@ def sol_7576_2():
                     if c == 0 or c > b:
                         graph[nx][ny] = b
                         q.append((nx, ny))
-                    elif c <= b:
+                    elif c <= b or c == -1:
+                        stop_traverse_idx.add(i)
+                        if len(stop_traverse_idx) == 4:
+                            break
                         continue
     bfs(idxs)
     res = [v for l in graph for v in l]
@@ -110,6 +122,8 @@ def sol_7576_2():
         print(-1)
     else:
         print(max(res)-1)
+
+sol_7576_2()
 def other_7576():
     pass
 

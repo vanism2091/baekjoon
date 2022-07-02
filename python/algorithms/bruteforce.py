@@ -2,7 +2,7 @@ import itertools
 
 problems = [2231, 2798, 11047, 7568, 1018, 1436, 1476, 14501, 10974]
 need_to_study = [1018, 1436, 1476, 14501, 10974]
-need_to_solve = [14501, ]
+need_to_solve = [ ]
 
 def sol_2231():
     from functools import reduce
