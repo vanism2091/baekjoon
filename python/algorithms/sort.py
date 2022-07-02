@@ -529,6 +529,18 @@ def sol_10815():
         pass
     pass
 
+# 뭐지...? 이게 내 풀이...?
+# in을 위해 set을 썼구나 :)
+from sys import stdin
+inputs = stdin.read().splitlines()
+
+def sol_10815():
+    num = set(map(int, inputs[1].split()))
+    return " ".join(["1" if n in num else "0" for n in map(int,inputs[3].split())])
+                     
+# if __name__ == "__main__":
+print(sol_10815())
+
 def other_10815():
     pass
 
